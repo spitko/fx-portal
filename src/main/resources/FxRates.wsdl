@@ -1,0 +1,427 @@
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.lb.lt/WebServices/FxRates"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.lb.lt/WebServices/FxRates">
+    <script id="argent-x-extension" data-extension-id="dlcobpjiigpikoobohmabehhmhfoodbb"/>
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service provides exchange rates of the euro
+        against foreign currencies, published by the European Central Bank and the Bank of Lithuania.
+    </wsdl:documentation>
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://www.lb.lt/WebServices/FxRates">
+            <s:element name="getCurrencyList">
+                <s:complexType/>
+            </s:element>
+            <s:element name="getCurrencyListResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="getCurrencyListResult">
+                            <s:complexType mixed="true">
+                                <s:sequence>
+                                    <s:any/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="getCurrentFxRates">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="tp" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="getCurrentFxRatesResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="getCurrentFxRatesResult">
+                            <s:complexType mixed="true">
+                                <s:sequence>
+                                    <s:any/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="getFxRates">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="tp" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="dt" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="getFxRatesResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="getFxRatesResult">
+                            <s:complexType mixed="true">
+                                <s:sequence>
+                                    <s:any/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="getFxRatesForCurrency">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="tp" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="ccy" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="dtFrom" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="dtTo" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="getFxRatesForCurrencyResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="getFxRatesForCurrencyResult">
+                            <s:complexType mixed="true">
+                                <s:sequence>
+                                    <s:any/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="getCurrencyListSoapIn">
+        <wsdl:part name="parameters" element="tns:getCurrencyList"/>
+    </wsdl:message>
+    <wsdl:message name="getCurrencyListSoapOut">
+        <wsdl:part name="parameters" element="tns:getCurrencyListResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getCurrentFxRatesSoapIn">
+        <wsdl:part name="parameters" element="tns:getCurrentFxRates"/>
+    </wsdl:message>
+    <wsdl:message name="getCurrentFxRatesSoapOut">
+        <wsdl:part name="parameters" element="tns:getCurrentFxRatesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesSoapIn">
+        <wsdl:part name="parameters" element="tns:getFxRates"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesSoapOut">
+        <wsdl:part name="parameters" element="tns:getFxRatesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesForCurrencySoapIn">
+        <wsdl:part name="parameters" element="tns:getFxRatesForCurrency"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesForCurrencySoapOut">
+        <wsdl:part name="parameters" element="tns:getFxRatesForCurrencyResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getCurrencyListHttpGetIn"/>
+    <wsdl:message name="getCurrencyListHttpGetOut">
+        <wsdl:part name="Body"/>
+    </wsdl:message>
+    <wsdl:message name="getCurrentFxRatesHttpGetIn">
+        <wsdl:part name="tp" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="getCurrentFxRatesHttpGetOut">
+        <wsdl:part name="Body"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesHttpGetIn">
+        <wsdl:part name="tp" type="s:string"/>
+        <wsdl:part name="dt" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesHttpGetOut">
+        <wsdl:part name="Body"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesForCurrencyHttpGetIn">
+        <wsdl:part name="tp" type="s:string"/>
+        <wsdl:part name="ccy" type="s:string"/>
+        <wsdl:part name="dtFrom" type="s:string"/>
+        <wsdl:part name="dtTo" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesForCurrencyHttpGetOut">
+        <wsdl:part name="Body"/>
+    </wsdl:message>
+    <wsdl:message name="getCurrencyListHttpPostIn"/>
+    <wsdl:message name="getCurrencyListHttpPostOut">
+        <wsdl:part name="Body"/>
+    </wsdl:message>
+    <wsdl:message name="getCurrentFxRatesHttpPostIn">
+        <wsdl:part name="tp" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="getCurrentFxRatesHttpPostOut">
+        <wsdl:part name="Body"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesHttpPostIn">
+        <wsdl:part name="tp" type="s:string"/>
+        <wsdl:part name="dt" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesHttpPostOut">
+        <wsdl:part name="Body"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesForCurrencyHttpPostIn">
+        <wsdl:part name="tp" type="s:string"/>
+        <wsdl:part name="ccy" type="s:string"/>
+        <wsdl:part name="dtFrom" type="s:string"/>
+        <wsdl:part name="dtTo" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="getFxRatesForCurrencyHttpPostOut">
+        <wsdl:part name="Body"/>
+    </wsdl:message>
+    <wsdl:portType name="FxRatesSoap">
+        <wsdl:operation name="getCurrencyList">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List of ISO 4217 currencies
+            </wsdl:documentation>
+            <wsdl:input message="tns:getCurrencyListSoapIn"/>
+            <wsdl:output message="tns:getCurrencyListSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getCurrentFxRates">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Last available currency exchange rates
+            </wsdl:documentation>
+            <wsdl:input message="tns:getCurrentFxRatesSoapIn"/>
+            <wsdl:output message="tns:getCurrentFxRatesSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRates">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Currency exchange rates at specified
+                date
+            </wsdl:documentation>
+            <wsdl:input message="tns:getFxRatesSoapIn"/>
+            <wsdl:output message="tns:getFxRatesSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRatesForCurrency">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Exchange rates for specified currency at
+                date interval
+            </wsdl:documentation>
+            <wsdl:input message="tns:getFxRatesForCurrencySoapIn"/>
+            <wsdl:output message="tns:getFxRatesForCurrencySoapOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="FxRatesHttpGet">
+        <wsdl:operation name="getCurrencyList">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List of ISO 4217 currencies
+            </wsdl:documentation>
+            <wsdl:input message="tns:getCurrencyListHttpGetIn"/>
+            <wsdl:output message="tns:getCurrencyListHttpGetOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getCurrentFxRates">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Last available currency exchange rates
+            </wsdl:documentation>
+            <wsdl:input message="tns:getCurrentFxRatesHttpGetIn"/>
+            <wsdl:output message="tns:getCurrentFxRatesHttpGetOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRates">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Currency exchange rates at specified
+                date
+            </wsdl:documentation>
+            <wsdl:input message="tns:getFxRatesHttpGetIn"/>
+            <wsdl:output message="tns:getFxRatesHttpGetOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRatesForCurrency">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Exchange rates for specified currency at
+                date interval
+            </wsdl:documentation>
+            <wsdl:input message="tns:getFxRatesForCurrencyHttpGetIn"/>
+            <wsdl:output message="tns:getFxRatesForCurrencyHttpGetOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="FxRatesHttpPost">
+        <wsdl:operation name="getCurrencyList">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List of ISO 4217 currencies
+            </wsdl:documentation>
+            <wsdl:input message="tns:getCurrencyListHttpPostIn"/>
+            <wsdl:output message="tns:getCurrencyListHttpPostOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getCurrentFxRates">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Last available currency exchange rates
+            </wsdl:documentation>
+            <wsdl:input message="tns:getCurrentFxRatesHttpPostIn"/>
+            <wsdl:output message="tns:getCurrentFxRatesHttpPostOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRates">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Currency exchange rates at specified
+                date
+            </wsdl:documentation>
+            <wsdl:input message="tns:getFxRatesHttpPostIn"/>
+            <wsdl:output message="tns:getFxRatesHttpPostOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRatesForCurrency">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Exchange rates for specified currency at
+                date interval
+            </wsdl:documentation>
+            <wsdl:input message="tns:getFxRatesForCurrencyHttpPostIn"/>
+            <wsdl:output message="tns:getFxRatesForCurrencyHttpPostOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="FxRatesSoap" type="tns:FxRatesSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getCurrencyList">
+            <soap:operation soapAction="http://www.lb.lt/WebServices/FxRates/getCurrencyList" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCurrentFxRates">
+            <soap:operation soapAction="http://www.lb.lt/WebServices/FxRates/getCurrentFxRates" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRates">
+            <soap:operation soapAction="http://www.lb.lt/WebServices/FxRates/getFxRates" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRatesForCurrency">
+            <soap:operation soapAction="http://www.lb.lt/WebServices/FxRates/getFxRatesForCurrency" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="FxRatesSoap12" type="tns:FxRatesSoap">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getCurrencyList">
+            <soap12:operation soapAction="http://www.lb.lt/WebServices/FxRates/getCurrencyList" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCurrentFxRates">
+            <soap12:operation soapAction="http://www.lb.lt/WebServices/FxRates/getCurrentFxRates" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRates">
+            <soap12:operation soapAction="http://www.lb.lt/WebServices/FxRates/getFxRates" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRatesForCurrency">
+            <soap12:operation soapAction="http://www.lb.lt/WebServices/FxRates/getFxRatesForCurrency" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="FxRatesHttpGet" type="tns:FxRatesHttpGet">
+        <http:binding verb="GET"/>
+        <wsdl:operation name="getCurrencyList">
+            <http:operation location="/getCurrencyList"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="Body" type="text/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCurrentFxRates">
+            <http:operation location="/getCurrentFxRates"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="Body" type="text/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRates">
+            <http:operation location="/getFxRates"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="Body" type="text/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRatesForCurrency">
+            <http:operation location="/getFxRatesForCurrency"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="Body" type="text/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="FxRatesHttpPost" type="tns:FxRatesHttpPost">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="getCurrencyList">
+            <http:operation location="/getCurrencyList"/>
+            <wsdl:input>
+                <mime:content type="application/x-www-form-urlencoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="Body" type="text/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCurrentFxRates">
+            <http:operation location="/getCurrentFxRates"/>
+            <wsdl:input>
+                <mime:content type="application/x-www-form-urlencoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="Body" type="text/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRates">
+            <http:operation location="/getFxRates"/>
+            <wsdl:input>
+                <mime:content type="application/x-www-form-urlencoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="Body" type="text/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getFxRatesForCurrency">
+            <http:operation location="/getFxRatesForCurrency"/>
+            <wsdl:input>
+                <mime:content type="application/x-www-form-urlencoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content part="Body" type="text/xml"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="FxRates">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service provides exchange rates of the
+            euro against foreign currencies, published by the European Central Bank and the Bank of Lithuania.
+        </wsdl:documentation>
+        <wsdl:port name="FxRatesSoap" binding="tns:FxRatesSoap">
+            <soap:address location="https://www.lb.lt/webservices/fxrates/fxrates.asmx"/>
+        </wsdl:port>
+        <wsdl:port name="FxRatesSoap12" binding="tns:FxRatesSoap12">
+            <soap12:address location="https://www.lb.lt/webservices/fxrates/fxrates.asmx"/>
+        </wsdl:port>
+        <wsdl:port name="FxRatesHttpGet" binding="tns:FxRatesHttpGet">
+            <http:address location="https://old.lb.lt/webservices/FxRates/FxRates.asmx"/>
+        </wsdl:port>
+        <wsdl:port name="FxRatesHttpPost" binding="tns:FxRatesHttpPost">
+            <http:address location="https://old.lb.lt/webservices/FxRates/FxRates.asmx"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
