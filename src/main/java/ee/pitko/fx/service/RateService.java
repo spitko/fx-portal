@@ -39,9 +39,7 @@ public class RateService {
             return cachedRates;
         }
         logger.info("Fetching current exchange rates from LB service");
-        List<ExchangeRate> newRates = fetchCurrentExchangeRatesFromLB();
-        rateRepository.saveAll(newRates);
-        return newRates;
+        return fetchCurrentExchangeRatesFromLB();
     }
 
     public List<ExchangeRate> getHistoricalRates(String currency) {
@@ -51,17 +49,17 @@ public class RateService {
             return cachedRates;
         }
         logger.info("Fetching historical exchange rates for {} from LB service", currency);
-        List<ExchangeRate> newRates = fetchHistoricalExchangeRatesFromLB(currency);
-        rateRepository.saveAll(newRates);
-        return newRates;
+        return fetchHistoricalExchangeRatesFromLB(currency);
     }
 
-    private List<ExchangeRate> fetchCurrentExchangeRatesFromLB() {
+    public List<ExchangeRate> fetchCurrentExchangeRatesFromLB() {
         FxRatesHandling soapResponse = fxRatesSoap.getCurrentFxRates(EXCHANGE_RATE_TYPE).getFxRates();
         if (soapResponse.getOprlErr() != null) {
             throw OperationalErrorException.fromXML(soapResponse.getOprlErr());
         }
-        return soapResponse.getFxRate().stream().map(ExchangeRate::fromXML).sorted(Comparator.comparing(ExchangeRate::getCurrency)).toList();
+        List<ExchangeRate> newRates = soapResponse.getFxRate().stream().map(ExchangeRate::fromXML).sorted(Comparator.comparing(ExchangeRate::getCurrency)).toList();
+        rateRepository.saveAll(newRates);
+        return newRates;
     }
 
     private List<ExchangeRate> fetchHistoricalExchangeRatesFromLB(String currency) {
@@ -71,7 +69,9 @@ public class RateService {
         if (soapResponse.getOprlErr() != null) {
             throw OperationalErrorException.fromXML(soapResponse.getOprlErr());
         }
-        return soapResponse.getFxRate().stream().map(ExchangeRate::fromXML).sorted(Comparator.comparing(ExchangeRate::getDate)).toList();
+        List<ExchangeRate> newRates = soapResponse.getFxRate().stream().map(ExchangeRate::fromXML).sorted(Comparator.comparing(ExchangeRate::getDate)).toList();
+        rateRepository.saveAll(newRates);
+        return newRates;
     }
 
     private boolean isHistoricalRateCacheValid(List<ExchangeRate> cachedRates) {
