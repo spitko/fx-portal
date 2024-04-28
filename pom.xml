@@ -55,9 +55,9 @@
 					</execution>
 				</executions>
 				<configuration>
-					<wsdlUrls>
-						<wsdlUrl>https://www.lb.lt/webservices/fxrates/fxrates.asmx?wsdl</wsdlUrl>
-					</wsdlUrls>
+					<wsdlFiles>
+						<wsdlFile>${project.basedir}/src/main/resources/FxRates.wsdl</wsdlFile>
+					</wsdlFiles>
 					<packageName>ee.pitko.fx.client</packageName>
 					<sourceDestDir>
 						${project.build.directory}/generated-sources/

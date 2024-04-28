@@ -3,12 +3,12 @@
                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
                   xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
                   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.lb.lt/WebServices/FxRates">
-    <script id="argent-x-extension" data-extension-id="dlcobpjiigpikoobohmabehhmhfoodbb"/>
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service provides exchange rates of the euro
         against foreign currencies, published by the European Central Bank and the Bank of Lithuania.
     </wsdl:documentation>
     <wsdl:types>
         <s:schema elementFormDefault="qualified" targetNamespace="http://www.lb.lt/WebServices/FxRates">
+            <s:import namespace="http://www.lb.lt/WebServices/FxRates" schemaLocation="FxRates.xsd"/>
             <s:element name="getCurrencyList">
                 <s:complexType/>
             </s:element>
@@ -36,9 +36,9 @@
                 <s:complexType>
                     <s:sequence>
                         <s:element minOccurs="0" maxOccurs="1" name="getCurrentFxRatesResult">
-                            <s:complexType mixed="true">
+                            <s:complexType>
                                 <s:sequence>
-                                    <s:any/>
+                                    <s:element name="FxRates" type="tns:FxRatesHandling"/>
                                 </s:sequence>
                             </s:complexType>
                         </s:element>
@@ -57,9 +57,9 @@
                 <s:complexType>
                     <s:sequence>
                         <s:element minOccurs="0" maxOccurs="1" name="getFxRatesResult">
-                            <s:complexType mixed="true">
+                            <s:complexType>
                                 <s:sequence>
-                                    <s:any/>
+                                    <s:element name="FxRates" type="tns:FxRatesHandling"/>
                                 </s:sequence>
                             </s:complexType>
                         </s:element>
@@ -80,9 +80,9 @@
                 <s:complexType>
                     <s:sequence>
                         <s:element minOccurs="0" maxOccurs="1" name="getFxRatesForCurrencyResult">
-                            <s:complexType mixed="true">
+                            <s:complexType>
                                 <s:sequence>
-                                    <s:any/>
+                                    <s:element name="FxRates" type="tns:FxRatesHandling"/>
                                 </s:sequence>
                             </s:complexType>
                         </s:element>

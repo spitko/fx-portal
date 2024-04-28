@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.lb.lt/WebServices/FxRates" targetNamespace="http://www.lb.lt/WebServices/FxRates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="http://www.lb.lt/webservices/FxRates/Ccy.xsd" />
+
+	<xs:element name="FxRates" type="FxRatesHandling"/>
+
+	<xs:complexType name="FxRatesHandling">
+		<xs:annotation>
+			<xs:documentation>List of foreign exchange rates or technical error report</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="FxRate" type="FxRateHandling" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Exchange rate for currency pair</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="OprlErr" type="OprlErrHandling">
+					<xs:annotation>
+						<xs:documentation>Technical error report</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="FxRateHandling">
+		<xs:sequence>
+			<xs:element name="Tp" type="FxRateTypeHandling">
+				<xs:annotation>
+					<xs:documentation>Foreign exchange rate type identifier</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dt" type="ISODate">
+				<xs:annotation>
+					<xs:documentation>Foreign exchange rate date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CcyAmt" type="CcyAmtHandling" minOccurs="2" maxOccurs="2">
+				<xs:annotation>
+					<xs:documentation>Currency code and amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="FxRateTypeHandling">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LT">
+				<xs:annotation>
+					<xs:documentation>Foreign exchange rate in accordance to the Law on Accounting</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EU">
+				<xs:annotation>
+					<xs:documentation>Foreign exchange rate by date of publication</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+    </xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CcyAmtHandling">
+		<xs:sequence>
+			<xs:element name="Ccy" type="Ccy_ISO_4217">
+				<xs:annotation>
+					<xs:documentation>Currency code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Amt" type="Amount">
+				<xs:annotation>
+					<xs:documentation>Currency amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OprlErrHandling">
+		<xs:sequence>
+			<xs:element name="Err" type="ErrorCode">
+				<xs:annotation>
+					<xs:documentation>Error code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Desc" type="Max2000Text" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Error description</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ErrorCode">
+		<xs:sequence>
+			<xs:element name="Prtry" type="Max16AlphaNumericText">
+				<xs:annotation>
+					<xs:documentation>XML error code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="Amount">
+		<xs:restriction base="xs:decimal">
+			<xs:minExclusive value="0"/>
+			<xs:maxExclusive value="1000000000000"/>
+			<xs:fractionDigits value="7"/>
+			<xs:totalDigits value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ISODate">
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Max2000Text">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Max16AlphaNumericText">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9]{1,16}"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
