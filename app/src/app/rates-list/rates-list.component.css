@@ -3,8 +3,23 @@ th,
 td {
   border: 1px solid black;
   border-collapse: collapse;
+  width: max-content;
+}
+
+.left {
+  height: 98vh;
+  overflow-y: auto;
 }
 
 a {
   color: black;
+}
+
+:host {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+}
+
+.right {
+  position: relative;
 }

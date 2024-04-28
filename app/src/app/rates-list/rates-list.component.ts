@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RatesService } from '../services/rates.service';
 import { ExchangeRate } from '../models/ExchangeRate';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-rates-list',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './rates-list.component.html',
   styleUrl: './rates-list.component.css',
 })

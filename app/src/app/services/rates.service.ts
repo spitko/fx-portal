@@ -14,4 +14,8 @@ export class RatesService {
   getCurrent(): Observable<ExchangeRate[]> {
     return this.http.get<ExchangeRate[]>(`${baseUrl}/current`);
   }
+
+  getHistorical(currency: string): Observable<ExchangeRate[]> {
+    return this.http.get<ExchangeRate[]>(`${baseUrl}/historical/${currency}`);
+  }
 }
