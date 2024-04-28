@@ -1,0 +1,21 @@
+<table>
+  <thead>
+    <tr>
+      <th>Currency</th>
+      <th>Rate</th>
+      <th>Updated On</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (rate of rates; track rate.currency) {
+    <tr>
+      <td>
+        <a href="#">{{ rate.currency }}</a>
+      </td>
+      <td>{{ rate.rate }}</td>
+      <td>{{ rate.date }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
+<router-outlet />
