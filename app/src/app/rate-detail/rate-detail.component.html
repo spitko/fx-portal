@@ -1,3 +1,9 @@
+<label>
+  <span>Amount to convert: </span>
+  <input type="number" (input)="onAmountChange($event)" [value]="amount" />
+  EUR =
+</label>
+<span>Converted amount: {{ convertedAmount }} {{ currentRate?.currency }}</span>
 <div class="chart-container">
   <canvas id="RateChart">{{ chart }}</canvas>
 </div>

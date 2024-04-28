@@ -1,17 +1,8 @@
-import {
-  AfterContentInit,
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Inject,
-  Input,
-  PLATFORM_ID,
-  ViewChild,
-} from '@angular/core';
-import { RatesService } from '../services/rates.service';
-import { ExchangeRate } from '../models/ExchangeRate';
-import { Chart } from 'chart.js/auto';
 import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, Input, PLATFORM_ID } from '@angular/core';
+import { Chart } from 'chart.js/auto';
+import { ExchangeRate } from '../models/ExchangeRate';
+import { RatesService } from '../services/rates.service';
 
 @Component({
   selector: 'app-rate-detail',
@@ -21,7 +12,11 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './rate-detail.component.css',
 })
 export class RateDetailComponent {
+  public amount: number = 1;
+  public convertedAmount: string = '0';
+
   chart!: Chart;
+  public currentRate?: ExchangeRate;
 
   constructor(
     private ratesService: RatesService,
@@ -39,8 +34,25 @@ export class RateDetailComponent {
     if (isPlatformBrowser(this.platformId)) {
       this.ratesService.getHistorical(currency).subscribe((data) => {
         this.updateChart(data);
+        this.currentRate = data[data.length - 1];
+        this.convertedAmount = (
+          this.amount * Number(this.currentRate?.rate)
+        ).toFixed(2);
       });
     }
+  }
+
+  onAmountChange(event: any) {
+    const newValue = event.target.value;
+    if (!newValue) {
+      this.amount = 0;
+      this.convertedAmount = '0';
+      return;
+    }
+    this.amount = Number(newValue);
+    this.convertedAmount = (
+      this.amount * Number(this.currentRate?.rate)
+    ).toFixed(2);
   }
 
   private initChart() {
