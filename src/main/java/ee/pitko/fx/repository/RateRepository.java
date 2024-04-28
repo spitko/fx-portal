@@ -19,6 +19,7 @@ public interface RateRepository extends JpaRepository<ExchangeRate, ExchangeRate
             WHERE er.date = (SELECT MAX(innerER.date)
                              FROM ExchangeRate innerER
                              WHERE innerER.currency = er.currency)
+            ORDER BY er.currency ASC
             """)
     List<ExchangeRate> getCurrentRates();
 }
