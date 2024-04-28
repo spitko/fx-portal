@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class RateService {
 
     private static final String EXCHANGE_RATE_TYPE = "EU";
+    private static final int CURRENCY_COUNT = 86;
     private static final Logger logger = LoggerFactory.getLogger(RateService.class);
 
 
@@ -33,7 +35,7 @@ public class RateService {
     public List<ExchangeRate> getCurrentRates() {
         logger.info("Fetching current exchange rates from db");
         List<ExchangeRate> cachedRates = rateRepository.getCurrentRates();
-        if (!cachedRates.isEmpty()) {
+        if (cachedRates.size() == CURRENCY_COUNT) {
             return cachedRates;
         }
         logger.info("Fetching current exchange rates from LB service");
@@ -59,7 +61,7 @@ public class RateService {
         if (soapResponse.getOprlErr() != null) {
             throw OperationalErrorException.fromXML(soapResponse.getOprlErr());
         }
-        return soapResponse.getFxRate().stream().map(ExchangeRate::fromXML).toList();
+        return soapResponse.getFxRate().stream().map(ExchangeRate::fromXML).sorted(Comparator.comparing(ExchangeRate::getCurrency)).toList();
     }
 
     private List<ExchangeRate> fetchHistoricalExchangeRatesFromLB(String currency) {
@@ -69,7 +71,7 @@ public class RateService {
         if (soapResponse.getOprlErr() != null) {
             throw OperationalErrorException.fromXML(soapResponse.getOprlErr());
         }
-        return soapResponse.getFxRate().stream().map(ExchangeRate::fromXML).toList();
+        return soapResponse.getFxRate().stream().map(ExchangeRate::fromXML).sorted(Comparator.comparing(ExchangeRate::getDate)).toList();
     }
 
     private boolean isHistoricalRateCacheValid(List<ExchangeRate> cachedRates) {

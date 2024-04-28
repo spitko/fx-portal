@@ -28,7 +28,7 @@ public interface RateRepository extends JpaRepository<ExchangeRate, ExchangeRate
             SELECT er
             FROM ExchangeRate er
             WHERE er.currency = :currency
-            AND er.date >= DATEADD(Day, -365, current_date)
+            AND er.date >= DATEADD(Year, -1, current_date)
             ORDER BY er.date ASC
             """)
     List<ExchangeRate> getHistoricalRates(String currency);
