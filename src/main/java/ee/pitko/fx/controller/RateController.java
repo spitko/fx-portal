@@ -6,10 +6,7 @@ import ee.pitko.fx.model.ExchangeRate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,12 @@ public class RateController {
     public ResponseEntity<List<ExchangeRate>> getCurrentFxRates() {
         return new ResponseEntity<>(rateService.getCurrentRates(), HttpStatus.OK);
     }
+
+    @GetMapping("/historical/{currency}")
+    public ResponseEntity<List<ExchangeRate>> getHistoricalFxRates(@PathVariable String currency) {
+        return new ResponseEntity<>(rateService.getHistoricalRates(currency), HttpStatus.OK);
+    }
+
 
     @ExceptionHandler(OperationalErrorException.class)
     public ResponseEntity<String> handleOperationalErrorException(OperationalErrorException ex) {
